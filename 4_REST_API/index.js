@@ -16,7 +16,8 @@ app.use((req,res,next)=>{
 
 app.use((req,res,next)=>{
   console.log("Heelo from middleware 2");
-  return res.end("Hey")
+  res.setHeader('X-Name','Kushal Rao')
+  next();
 })
 //ROUTES
 
@@ -35,9 +36,12 @@ app.get("/users", (req, res) => {
 app.post("/api/users", (req, res) => {
   const body=req.body;
   console.log("Body",body);
+  if(!body || !body.first_name || !body.last_name || !body.email || !body.gender){
+    return res.status(400).json({msg:"All fields are required"})
+  }
   users.push({...body,id:users.length+1});
   fs.writeFile("./MOCK_DATA.json",JSON.stringify(users),(err,data)=>{
-    return res.json({status:"success",id:users.length,userData:data});
+    return res.status(201).json({status:"success",id:users.length,userData:req.body});
   })
 });
 
@@ -82,7 +86,7 @@ app
       // Update the user's properties
       Object.assign(userToUpdate, updates);
   
-      res.json(userToUpdate);
+      res.status(201).json(userToUpdate);
       return;
     }
     res.status(404).send('User not found');
