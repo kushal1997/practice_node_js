@@ -1,4 +1,9 @@
 const URL = require("../models/url");
+
+const getAllURLs=async(req,res)=>{
+  const allURLs=await URL.find({});
+  return res.status(200).json({data:allURLs})
+}
 const generateNewShortUrl = async (req, res) => {
   const { nanoid } = await import("nanoid");
   const body = req.body;
@@ -37,6 +42,7 @@ const getAnalystics=async(req,res)=>{
     })
 }
 module.exports = {
+  getAllURLs,
   generateNewShortUrl,
   getShortId,
   getAnalystics
