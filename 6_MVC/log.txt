@@ -1,0 +1,10 @@
+
+ 1716649616331: GET: /api/users
+ 1716649695370: GET: /api/users
+ 1716649711496: GET: /api/users/6651ea68c97a14e98cca89c2
+ 1716649753298: PATCH: /api/users/6651ea68c97a14e98cca89c2
+ 1716649758246: GET: /api/users/6651ea68c97a14e98cca89c2
+ 1716649775351: POST: /api/users
+ 1716649785412: GET: /api/users
+ 1716649797499: DELETE: /api/users/6651ff2f8dfb50d0ebfbb7b3
+ 1716649801010: GET: /api/users
