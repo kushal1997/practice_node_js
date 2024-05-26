@@ -1,12 +1,16 @@
 const express = require("express");
 const path=require('path');
+require('dotenv').config();
 const { connectMongodb } = require("./config/mongoose");
 
 const urlRouter=require('./routes/url');
 const app =express();
 const PORT =8000;
 
-connectMongodb("mongodb://127.0.0.1:27017/url_shortener")
+const atlasUrl = process.env.MONGODB_ATLAS_URL;
+
+
+connectMongodb(atlasUrl)
   .then(() => console.log("Mongo DB connected successfully"))
   .catch((err) => console.log("Mongo error", err));
   
