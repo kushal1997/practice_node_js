@@ -18,11 +18,15 @@ const generateNewShortUrl = async (req, res) => {
     shortId: shortID,
     redirectURL: body.url,
     visistHistory: [],
+    createdBy:req.user._id
   });
+  if(!req.user) return res.redirect('/login');
 
+  const allURLs=await URL.find({createdBy:req.user._id});
   // return res.status(201).json({ id: shortID, msg: "URL shortened properly" });
   return res.render("home",{
-    id:shortID
+    id:shortID,
+    urls:allURLs,
   })
 };
 
