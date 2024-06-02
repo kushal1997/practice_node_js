@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <link rel="stylesheet" type="text/css" href="./public/style.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px 0;
+      }
+
+      label {
+        margin-bottom: 5px;
+      }
+
+      input[type="url"] {
+        width: 100%;
+        max-width: 500px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      button {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .export {
+        display: block;
+        width: 100px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .export:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>URL Shortener</h1>
+      <p>Shorten your long URLs and track their performance.</p>
+      <form method="POST" action="/url">
+        <label>Long URL</label>
+        <input
+          type="url"
+          id="long-url"
+          name="url"
+          placeholder="https://example.com/very-long-url"
+        />
+        <button type="submit">Shorten URL</button>
+      </form>
+      <% if(locals.id) { %>
+<p>URL generated successfully <a href="http://localhost:8000/url/<%= id %>" target="_blank" rel="noopener noreferrer">http://localhost:8000/url/<%= id %></a></p>
+      <% } %>
+      <% if(locals.urls) { %>
+        <h2>Shortened URLs</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Sl. No.</th>
+              <th>Short URL</th>
+              <th>Long URL</th>
+              <th>Clicks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% urls.forEach((url,i) => { %>
+            <tr>
+              <td><%=i+1 %> </td>
+              <td>
+                  <a href="http://localhost:8000/url/<%= url.shortId %>" target="_blank"><%= url.shortId %></a>
+              </td>
+  
+              <td><%= url.redirectURL %></td>
+              <td><%= url.visistHistory.length %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+     
+      <button class="export">Export</button>
+    </div>
+  </body>
+</html>
