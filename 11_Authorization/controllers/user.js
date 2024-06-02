@@ -20,9 +20,10 @@ const handleUserLogin = async (req, res) => {
     });
   }
   const token=setUser(user);
-  // res.cookie("uid", token);
-  // return res.redirect("/");
-  return res.json({"token":token,"data":user})
+  res.cookie("token", token);
+  if(user.role==="ADMIN") return res.redirect("/admin/urls");
+  return res.redirect("/");
+  // return res.json({"token":token,"data":user})
 };
 
 module.exports = {
