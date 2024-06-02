@@ -1,10 +1,15 @@
 const express = require("express");
 const path=require('path');
 require('dotenv').config();
+
 const { connectMongodb } = require("./config/mongoose");
+const cookieParser=require('cookie-parser');
+const {restrictToLoggedUserOnly,checkAuth} =require('./middlewares/auth')
 
 const urlRouter=require('./routes/url');
 const staticRouter=require('./routes/staticRouter')
+const userRouter=require('./routes/user');
+
 const app =express();
 const PORT =8000;
 
@@ -20,8 +25,10 @@ connectMongodb(atlasUrl)
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
+  app.use(cookieParser())
 
-  app.use('/url',urlRouter);
-  app.use('/',staticRouter);
+  app.use('/url',restrictToLoggedUserOnly,urlRouter);
+  app.use('/user',userRouter)
+  app.use('/',checkAuth,staticRouter);
 
 app.listen(PORT,()=>console.log("Server is running at ",PORT))
