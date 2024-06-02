@@ -4,6 +4,7 @@ require('dotenv').config();
 const { connectMongodb } = require("./config/mongoose");
 
 const urlRouter=require('./routes/url');
+const staticRouter=require('./routes/staticRouter')
 const app =express();
 const PORT =8000;
 
@@ -21,5 +22,6 @@ connectMongodb(atlasUrl)
   app.use(express.urlencoded({ extended: false }));
 
   app.use('/url',urlRouter);
+  app.use('/',staticRouter);
 
 app.listen(PORT,()=>console.log("Server is running at ",PORT))
