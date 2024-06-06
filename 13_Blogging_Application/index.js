@@ -5,6 +5,8 @@ require('dotenv').config();
 const { connectMongodb } = require("./config/mongoose");
 const staticRouter=require('./routes/staticRoute');
 const userRouter=require("./routes/user");
+const cookieParser=require('cookie-parser');
+const { checkForAuthenticationCookie } = require("./middlewares/authentication");
 
 const app=express();
 const PORT=8000;
@@ -21,6 +23,8 @@ app.set('views',path.resolve('./views'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(checkForAuthenticationCookie('token'));
 
 app.use('/',staticRouter)
 app.use("/user",userRouter)

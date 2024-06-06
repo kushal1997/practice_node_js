@@ -3,7 +3,7 @@ const User = require("../models/user");
 const handleSignUp = async (req, res) => {
     console.log("handleSignUp function called:",req.body)
   const { fullName, email, password } = req.body;
-  await User.create({
+  await User.create({ 
     fullName,
     email,
     password,
@@ -16,16 +16,26 @@ const handleSignIn = async (req, res) => {
     const { email, password } = req.body;
   
     try {
-      const user = await User.matchedPassword(email, password);
-      console.log("User authenticated:", user);
-      return res.redirect("/");
+      const token = await User.matchedPasswordAndGenerateToken(email, password);
+      // console.log("User authenticated:", user);
+      // console.log("token",token)
+      return res.cookie('token',token).redirect("/");
     } catch (error) {
       console.error("Authentication failed:", error.message);
-      return res.status(401).send("Authentication failed: " + error.message);
+      if (!res.headersSent) {
+        return res.render('signin', {
+          error: 'Authentication failed. Please check your email and password and try again.'
+        });
+      }
     }
   };
+
+  const handleLogout=(req,res)=>{
+    res.clearCookie("token").redirect("/")
+  }
   
 module.exports = {
     handleSignUp,
-    handleSignIn
+    handleSignIn,
+    handleLogout
 };

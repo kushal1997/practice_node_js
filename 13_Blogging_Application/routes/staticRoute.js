@@ -2,7 +2,10 @@ const express=require('express');
 const router=express.Router();
 
 router.get("/",(req,res)=>{
-    return res.render('home')
+    console.log('User in route:', req.user); // Debug log
+    return res.render('home',{
+        user:req.user,
+    })
 })
 
 router.get("/signin",(req,res)=>{
