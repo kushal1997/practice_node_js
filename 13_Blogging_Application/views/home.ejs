@@ -12,8 +12,27 @@
         </div>
       <% } %>
     <%- include('./partials/nav.ejs')  %>    
-     <pre><%= JSON.stringify(user, null, 2) %></pre>
- 
+     <!-- <pre><%= JSON.stringify(user, null, 2) %></pre>
+     <pre><%= JSON.stringify(blogs, null, 2) %></pre> -->
+
+     <div class="container mt-3">
+        <div class="row">
+            <% blogs.forEach(blog => { %>
+                <div class="col-md-4 mb-3">
+                    <div class="card "  style="width: 18rem;">
+                        <img src="<%= blog.coverImageUrl %>" class="card-img-top"  height="250px" width="95%" alt="Blog Cover Image">
+                        <div class="card-body d-flex flex-column border-top">
+                            <h5 class="card-title"><%= blog.title %></h5>
+                            <p class="card-text flex-grow-1"><%= blog.body.substring(0, 100) %>...</p>
+                            <a href="/blog/<%= blog._id %>" class="btn btn-primary mt-auto">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+    
+    
     <%- include('./partials/script.ejs') %>
 </body>
 </html>

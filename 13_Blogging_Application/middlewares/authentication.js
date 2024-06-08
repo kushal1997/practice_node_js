@@ -8,7 +8,7 @@ function checkForAuthenticationCookie(cookieName) {
     }
     try {
       const userPayload = validateToken(tokenCookieValue);
-      console.log('User payload:', userPayload); // Debug log
+      // console.log('User payload:', userPayload); // Debug log
       req.user = userPayload;
     } catch (err) {
       console.error("Invalid token:", err.message); // Log the error for debugging

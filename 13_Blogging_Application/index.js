@@ -5,6 +5,7 @@ require('dotenv').config();
 const { connectMongodb } = require("./config/mongoose");
 const staticRouter=require('./routes/staticRoute');
 const userRouter=require("./routes/user");
+const blogRouter=require("./routes/blog");
 const cookieParser=require('cookie-parser');
 const { checkForAuthenticationCookie } = require("./middlewares/authentication");
 
@@ -25,8 +26,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(checkForAuthenticationCookie('token'));
+app.use(express.static(path.resolve('./public')));
 
-app.use('/',staticRouter)
-app.use("/user",userRouter)
+app.use('/',staticRouter);
+app.use("/user",userRouter);
+app.use("/blog",blogRouter);
 
 app.listen(PORT,()=>console.log("Server is running at PORT :",PORT))
