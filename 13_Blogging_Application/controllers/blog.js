@@ -1,4 +1,5 @@
 const Blog = require("../models/blog");
+const Comment = require("../models/comment");
 
 const handleAddBlog = async (req, res) => {
   console.log("handleAddBlog", req.body, req.file);
@@ -26,9 +27,11 @@ const handleAddBlog = async (req, res) => {
 
 const handleGetBlog = async (req, res) => {
   const blog = await Blog.findById(req.params.id).populate('createdBy','fullName email');
+  const comments=await Comment.find({blogId: req.params.id}).populate('createdBy','fullName email');
   return res.render("blog", {
     user: req.user,
     blog,
+    comments
   });
 };
 
