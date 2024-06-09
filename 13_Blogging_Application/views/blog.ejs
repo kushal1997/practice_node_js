@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <%- include('./partials/head.ejs') %>
+    <title>About Blog</title>
+    <style>
+        .blog-cover {
+          max-height: 300px;
+          object-fit: scale-down;
+        }
+        .profile-image {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      </style>
+</head>
+<body>
+    <%- include('./partials/nav.ejs')  %>  
+     <pre><%= JSON.stringify(blog, null, 2) %></pre>
+
+     <div class="container mt-5">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <img src="<%= blog.coverImageUrl %>" class="card-img-top blog-cover" alt="Cover Image">
+              <div class="card-body">
+                <h3 class="card-title"><%= blog.title %></h3>
+                <pre class="card-text"><%= blog.body %></pre>
+                <hr>
+                <div class="d-flex align-items-center">
+                  <img src="<%= blog.createdBy.profileImageURL %>" class="profile-image mr-3" alt="Creator Image">
+                  <div>
+                    <h5>Created by: <%= blog.createdBy.fullName %></h5>
+                    <h6>Contact Details: <%= blog.createdBy.email %></h6>
+                    <p>Created at: <%= new Date(blog.createdAt).toLocaleString() %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+    <%- include('./partials/script.ejs') %>
+   
+</body>
+</html>
