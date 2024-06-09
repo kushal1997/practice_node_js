@@ -11,13 +11,7 @@ router.get("/",async (req,res)=>{
     })
 })
 
-router.get("/signin",(req,res)=>{
-    return res.render('login')
-})
 
-router.get("/signup",(req,res)=>{
-    return res.render('signup')
-})
 
 
 

@@ -67,7 +67,7 @@
 
       <div class="card mt-4">
         <div class="card-body">
-          <h5 class="card-title">Comments</h5>
+          <h5 class="card-title">Comments (<%= comments.length %>)</h5>
           <% comments.forEach(comment => { %>
             <div class="comment">
               <p><strong><%= comment.createdBy.fullName %>: </strong> <%= comment.comment %></p>

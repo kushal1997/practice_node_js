@@ -8,7 +8,7 @@ const handleSignUp = async (req, res) => {
     email,
     password,
   });
-  return res.redirect("/")
+  return res.redirect("/user/signin")
 };
 
 const handleSignIn = async (req, res) => {
