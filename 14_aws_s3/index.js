@@ -19,14 +19,14 @@ const s3Client=new S3Client({
 // }
 
 
-async function putObject(filename,contentType){
-    const command= new PutObjectCommand({
-        Bucket:"private.noizyboy.cloud",
-        Key:`uploads/${filename}`,
-        ContentType:contentType,
-    });
-    return await getSignedUrl(s3Client,command);
-}
+// async function putObject(filename,contentType){
+//     const command= new PutObjectCommand({
+//         Bucket:"private.noizyboy.cloud",
+//         Key:`uploads/${filename}`,
+//         ContentType:contentType,
+//     });
+//     return await getSignedUrl(s3Client,command);
+// }
 
 async function listObjects(){
     const command=new ListObjectsV2Command({
