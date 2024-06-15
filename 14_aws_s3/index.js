@@ -1,4 +1,4 @@
-const { S3Client, GetObjectCommand, PutObjectCommand, ListObjectsV2Command } = require("@aws-sdk/client-s3");
+const { S3Client, GetObjectCommand, PutObjectCommand, ListObjectsV2Command, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 require('dotenv').config();
 
@@ -28,22 +28,34 @@ const s3Client=new S3Client({
 //     return await getSignedUrl(s3Client,command);
 // }
 
-async function listObjects(){
-    const command=new ListObjectsV2Command({
-        Bucket:"private.noizyboy.cloud",
-        key:"/"
-    })
-    const result=await s3Client.send(command);
+// async function listObjects(){
+//     const command=new ListObjectsV2Command({
+//         Bucket:"private.noizyboy.cloud",
+//         key:"/"
+//     })
+//     const result=await s3Client.send(command);
 
-    console.log(result);
+//     console.log(result);
+// }
+
+async function deleteObject(key){
+    const command=new DeleteObjectCommand({
+        Bucket:"private.noizyboy.cloud",
+        Key:key
+    })
+   await s3Client.send(command).then(()=> console.log("key value of ",key," is deleted successfully"))
+   .catch((err)=>console.log("key value of ",key," is unable to delete",err))
+
+    
 }
 async function init(){
-    // const key="uploads/video-1718422244404.mkv"
+    const key="uploads/video-1718422244404.mkv"
     // console.log("Signed URL",await getObjectURL(key));
 
     // console.log("URL for uploading",await putObject(`video-${Date.now()}.mkv`,"video/mkv"))
 
-    await listObjects();
+    // await listObjects();
+    await deleteObject(key);
 }
 
 
