@@ -1,4 +1,4 @@
-const { S3Client, GetObjectCommand, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, GetObjectCommand, PutObjectCommand, ListObjectsV2Command } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 require('dotenv').config();
 
@@ -27,11 +27,23 @@ async function putObject(filename,contentType){
     });
     return await getSignedUrl(s3Client,command);
 }
+
+async function listObjects(){
+    const command=new ListObjectsV2Command({
+        Bucket:"private.noizyboy.cloud",
+        key:"/"
+    })
+    const result=await s3Client.send(command);
+
+    console.log(result);
+}
 async function init(){
     // const key="uploads/video-1718422244404.mkv"
     // console.log("Signed URL",await getObjectURL(key));
 
-    console.log("URL for uploading",await putObject(`video-${Date.now()}.mkv`,"video/mkv"))
+    // console.log("URL for uploading",await putObject(`video-${Date.now()}.mkv`,"video/mkv"))
+
+    await listObjects();
 }
 
 
