@@ -1,0 +1,21 @@
+{
+  "name": "14_aws_s3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.598.0",
+    "@aws-sdk/s3-request-presigner": "^3.598.0",
+    "bowser": "^2.11.0",
+    "dotenv": "^16.4.5",
+    "fast-xml-parser": "^4.2.5",
+    "strnum": "^1.0.5",
+    "tslib": "^2.6.3",
+    "uuid": "^9.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
