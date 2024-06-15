@@ -1,5 +1,6 @@
 const express = require("express");
 const { connectMongodb } = require("./config/db");
+const cors = require('cors');
 const projectRoutes = require("./routes/projectRoutes");
 require("dotenv").config();
 
