@@ -35,3 +35,40 @@ exports.getProjects = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+
+// GET /api/projects - Get all projects
+exports.getAllProjects = async (req, res) => {
+    try {
+      const projects = await Project.find();
+      res.json(projects); // Respond with JSON array of projects
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error' });
+    }
+  };
+
+
+  // POST /api/projects - Create a new project
+exports.createProjectAPI = async (req, res) => {
+    const { name, createdAt, url, githubUrl, description, languages, isFork } = req.body;
+    const img = req.file.location; // Assuming you are using AWS S3 and `req.file.location` provides the image URL
+  
+    try {
+      const newProject = new Project({
+        name,
+        createdAt,
+        img,
+        url,
+        githubUrl,
+        description,
+        languages: JSON.parse(languages),
+        isFork,
+      });
+  
+      const project = await newProject.save();
+      res.status(201).json(project); // Respond with JSON object of created project
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error' });
+    }
+  };
