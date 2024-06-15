@@ -1,4 +1,4 @@
-const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, GetObjectCommand, PutObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 require('dotenv').config();
 
@@ -10,16 +10,28 @@ const s3Client=new S3Client({
     }
 });
 
-async function getObjectURL(key){
-    const command=new GetObjectCommand({
-        Bucket:"private.noizyboy.cloud",
-        Key:key,
-    });
-    return await getSignedUrl(s3Client,command)
-}
+// async function getObjectURL(key){
+//     const command=new GetObjectCommand({
+//         Bucket:"private.noizyboy.cloud",
+//         Key:key,
+//     });
+//     return await getSignedUrl(s3Client,command)
+// }
 
+
+async function putObject(filename,contentType){
+    const command= new PutObjectCommand({
+        Bucket:"private.noizyboy.cloud",
+        Key:`uploads/${filename}`,
+        ContentType:contentType,
+    });
+    return await getSignedUrl(s3Client,command);
+}
 async function init(){
-    console.log("Signed URL",await getObjectURL("Screenshot (12).png"));
+    // const key="uploads/video-1718422244404.mkv"
+    // console.log("Signed URL",await getObjectURL(key));
+
+    console.log("URL for uploading",await putObject(`video-${Date.now()}.mkv`,"video/mkv"))
 }
 
 
