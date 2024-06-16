@@ -11,8 +11,8 @@ const io=new Server(server);
 
 //socket.io
 io.on('connection', (socket) => {
-    socket.on("user-msg",(message)=>{
-       io.emit("msg",message);
+    socket.on("chat-msg",(message)=>{
+      io.emit("chat-msg",message)
     })
   });
 
